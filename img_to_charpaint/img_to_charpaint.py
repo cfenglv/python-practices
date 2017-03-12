@@ -4,24 +4,24 @@
 # @Author  : cfenglv
 # @File    : img_to_charpaint.py
 # @Software: PyCharm
+import random
 
 from PIL import Image
 import argparse
-import random
 charList = list("!@#$%^&*()-=+1234567890AQZXSWCDERFVBGTYHNMJUIKLOP[]{}qazxswedcvfrtgbnhyujmkilop/")
 
 
-def pixel_to_char(r, g, b, alpha=256):
+def pixel_to_char(r, g, b, alpha=256):  # TODO make it a class
     """To translate the pixel to a single char
-    Calculating the rgb value to grayscale value by the formula
-    Then map the grayscale value to the char that we have
-    So that a single char can be mapping to a single integer grayscale value(0-255)
+    Calculating the rgb value to GrayScale value by the formula
+    Then map the GrayScale value to the char that we have
+    So that a single char can be mapping to a single integer GrayScale value(0-255)
 
     :param r: the r value of the pixel rgb value
     :param g: the r value of the pixel rgb value
     :param b: the r value of the pixel rgb value
     :param alpha: the alpha value of the pixel, 0 means transparent, return a ' '
-    :return: a single char that mapping to the specific grayscale value
+    :return: a single char that mapping to the specific GrayScale value
     """
     if alpha == 0:
         return " "
