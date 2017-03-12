@@ -7,21 +7,22 @@
 
 from PIL import Image
 import argparse
-
+import random
 charList = list("!@#$%^&*()-=+1234567890AQZXSWCDERFVBGTYHNMJUIKLOP[]{}qazxswedcvfrtgbnhyujmkilop/")
 
+
 def pixel_to_char(r, g, b, alpha=256):
-    '''
-    To translate the pixel to a single char
+    """To translate the pixel to a single char
     Calculating the rgb value to grayscale value by the formula
     Then map the grayscale value to the char that we have
     So that a single char can be mapping to a single integer grayscale value(0-255)
+
     :param r: the r value of the pixel rgb value
     :param g: the r value of the pixel rgb value
     :param b: the r value of the pixel rgb value
     :param alpha: the alpha value of the pixel, 0 means transparent, return a ' '
     :return: a single char that mapping to the specific grayscale value
-    '''
+    """
     if alpha == 0:
         return " "
     gray = round((r * 30 + g * 59 + b * 11) / 100)
@@ -48,6 +49,8 @@ height = args.height
 if __name__ == "__main__":
     img = Image.open(file_name)
     char_paint = ""
+    random.shuffle(charList)
+    charList[0] = " "
 
     # Get the proportion of the native image
     nativeWidth, nativeHeight = img.size
@@ -60,9 +63,10 @@ if __name__ == "__main__":
         width = round(height * proportion)
     elif height == -1:
         height = round(width / proportion)
-
+    height //= 2
     # resize the img by the proportion
     # then trans the pixels to char
+    # because the txt indent, need to half the height
     img = img.resize((width, height), Image.NEAREST)
     img = img.convert("RGB")
     for i in range(height):
